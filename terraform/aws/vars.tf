@@ -6,17 +6,26 @@ locals {
   tags = {
     Name = "${var.tag}-${random_pet.test.id}"
   }
-
-  pub_cidrs  = cidrsubnets("10.0.0.0/24", 4, 4, 4, 4)
-  priv_cidrs = cidrsubnets("10.0.100.0/24", 4, 4, 4, 4)
 }
 
 variable "tag" {
   default = "boundary-test"
 }
 
-variable "boundary_bin" {
-  default = "~/projects/boundary/bin"
+variable "aws_vpc_id" {
+  type = string
+}
+
+variable "aws_public_subnets" {
+  type = list(string)
+}
+
+variable "aws_private_subnets" {
+  type = list(string)
+}
+
+variable "aws_ami_owner" {
+  type = string
 }
 
 variable "pub_ssh_key_path" {
@@ -32,26 +41,22 @@ variable "num_workers" {
 }
 
 variable "num_controllers" {
-  default = 2
+  default = 1
 }
 
 variable "num_targets" {
   default = 1
 }
 
-variable "num_subnets_public" {
-  default = 2
+variable "num_vault" {
+  default = 1
 }
 
-variable "num_subnets_private" {
-  default = 2
-}
-
-variable "tls_cert_path" {
+variable "boundary_tls_cert_path" {
   default = "/etc/pki/tls/boundary/boundary.cert"
 }
 
-variable "tls_key_path" {
+variable "boundary_tls_key_path" {
   default = "/etc/pki/tls/boundary/boundary.key"
 }
 

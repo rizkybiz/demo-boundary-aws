@@ -2,7 +2,7 @@ resource "aws_lb" "controller" {
   name               = "${var.tag}-controller-${random_pet.test.id}"
   load_balancer_type = "network"
   internal           = false
-  subnets            = aws_subnet.public.*.id
+  subnets            = var.aws_public_subnets
 
   tags = {
     Name = "${var.tag}-controller-${random_pet.test.id}"
@@ -13,7 +13,7 @@ resource "aws_lb_target_group" "controller" {
   name     = "${var.tag}-controller-${random_pet.test.id}"
   port     = 9200
   protocol = "TCP"
-  vpc_id   = aws_vpc.main.id
+  vpc_id   = var.aws_vpc_id
 
   stickiness {
     enabled = false
@@ -43,7 +43,7 @@ resource "aws_lb_listener" "controller" {
 }
 
 resource "aws_security_group" "controller_lb" {
-  vpc_id = aws_vpc.main.id
+  vpc_id = var.aws_vpc_id
 
   tags = {
     Name = "${var.tag}-controller-lb-${random_pet.test.id}"
