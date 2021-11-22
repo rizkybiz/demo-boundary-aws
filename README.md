@@ -1,26 +1,44 @@
 # Boundary Deployment Examples
-This directory contains two deployment examples for Boundary using Terraform. The `aws/` directory contains an example AWS reference architecture codified in Terraform. The `boundary/` directory contains an example Terraform configuration for Boundary using the [Boundary Terraform Provider](https://github.com/hashicorp/terraform-provider-boundary).
+This directory contains two deployment examples for Boundary using Terraform. The `terraform/aws` directory contains an example AWS reference architecture codified in Terraform. The `terraform/boundary` directory contains an example Terraform configuration for Boundary using the [Boundary Terraform Provider](https://github.com/hashicorp/terraform-provider-boundary).
 
 ## Reference
 ![](arch.png)
 
 ## Requirements
 - Terraform 0.13
-- Go 1.15 or later 
+- Packer v1.7.5+
+
+## Prerequisities
+- AWS Credentials to:
+  - create VPCs
+  - create Subnets
+  - instantiate EC2 VMs
+  - create Load Balancer Resources
+  - create RDS Postgres DB
+  - create keys in KMS
+- AWS Credentials exported to you CLI
 
 ## Deploy
 To deploy this example:
-- Make sure you have a local checkout of `github.com/hashicorp/boundary`
-- Build the `boundary` binary for linux using `XC_OSARCH=linux/amd64 make dev` or download from our [release page](https://boundaryproject.io/) on our docs site.
-- In the `example` directory, run 
+- In the `packer` directory, run
 
 ```
-terraform apply -target module.aws -var boundary_bin=<path to your binary>
+packer build -var "unique_name=<YOUR NAME>" - var "boundary_version=0.7.1" aws-boundary.pkr.hcl
+```
+
+```
+packer build -var="vault_version=1.9.0" -var="unique_name=<YOUR NAME>" aws-vault.pkr.hcl
+```
+
+- In the `terraform` directory, run 
+
+```
+terraform apply
 ```
 
 If your public SSH key you want to SSH to these hosts are not located at `~/.ssh/id_rsa.pub` then you'll also need to override that value:
 ```
-terraform apply -target module.aws -var boundary_bin=<path to your binary> -var pub_ssh_key_path=<path to your SSH public key>
+terraform apply -target module.aws -var pub_ssh_key_path=<path to your SSH public key>
 ```
 
 If the private key is not named the same as the public key but without the .pub suffix and/or is not stored in the same directory, you can use the `priv_ssh_key_path` variable also to point to its location; otherwise its filename will be inferred from the filename of the public key.

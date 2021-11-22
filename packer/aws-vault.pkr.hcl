@@ -41,6 +41,7 @@ build {
     inline = [
       "sudo mkdir -p /etc/pki/tls/vault",
       "sudo mkdir -p /opt/vault",
+      "sudo mkdir -p /opt/vault/data",
       "sudo apt-get update",
       "sudo apt-get install -y zip",
       "curl -q --output ~/vault.zip https://releases.hashicorp.com/vault/${var.vault_version}/vault_${var.vault_version}_linux_arm64.zip",

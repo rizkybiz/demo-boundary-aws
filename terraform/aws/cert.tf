@@ -20,11 +20,22 @@ resource "tls_self_signed_cert" "boundary" {
   ]
 }
 
-resource "aws_acm_certificate" "cert" {
-  private_key      = tls_private_key.boundary.private_key_pem
-  certificate_body = tls_self_signed_cert.boundary.cert_pem
+# Create TLS infra for Vault
+# resource "tls_private_key" "vault_ca" {
+#   algorithm = "RSA"
+#   rsa_bits = 4096
+# }
 
-  tags = {
-    Name = "${var.tag}-${random_pet.test.id}"
-  }
-}
+# resource "tls_self_signed_cert" "vault_ca" {
+#   key_algorithm = tls_private_key.vault_ca.algorithm
+#   subject {
+#     common_name  = "vault.dev"
+#     organization = "Vault, dev."
+#   }
+#   validity_period_hours = 12
+#   allowed_uses = [
+#     "key_encipherment",
+#     "digital_signature",
+#     "server_auth",
+#   ]
+# }

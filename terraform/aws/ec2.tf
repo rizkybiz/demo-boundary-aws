@@ -103,10 +103,6 @@ resource "aws_instance" "controller" {
     destination = "/opt/boundary/boundary-controller.hcl"
   }
 
-  # provisioner "remote-exec" {
-  #   inline = ["sudo mv ~/boundary-controller.hcl /etc/boundary-controller.hcl"]
-  # }
-
   provisioner "file" {
     source      = "${path.module}/install/install.sh"
     destination = "~/install.sh"
@@ -125,14 +121,14 @@ resource "aws_instance" "controller" {
 }
 
 # WIP Vault cluster
-resource "aws_instance" "vault" {
-  count         = var.num_vault
-  ami           = data.aws_ami.vault.id
-  instance_type = "t3.micro"
-  # iam_instance_profile = aws_iam_instance_profile.vault.name
-  subnet_id = var.aws_public_subnets[count.index]
-  key_name  = aws_key_pair.key_pair.key_name
-}
+# resource "aws_instance" "vault" {
+#   count         = var.num_vault
+#   ami           = data.aws_ami.vault.id
+#   instance_type = "t3.micro"
+#   # iam_instance_profile = aws_iam_instance_profile.vault.name
+#   subnet_id = var.aws_public_subnets[count.index]
+#   key_name  = aws_key_pair.key_pair.key_name
+# }
 
 # Example resource for connecting to through boundary over SSH
 resource "aws_instance" "target" {
