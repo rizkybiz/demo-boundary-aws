@@ -23,11 +23,11 @@ To deploy this example:
 - In the `packer` directory, run
 
 ```
-packer build -var "unique_name=<YOUR NAME>" - var "boundary_version=0.7.1" aws-boundary.pkr.hcl
+packer build -var "unique_name=<YOUR NAME>" -var "boundary_version=0.7.1" aws-boundary.pkr.hcl
 ```
 
 ```
-packer build -var="vault_version=1.9.0" -var="unique_name=<YOUR NAME>" aws-vault.pkr.hcl
+packer build -var "vault_version=1.9.0" -var "unique_name=<YOUR NAME>" aws-vault.pkr.hcl
 ```
 
 - In the `terraform` directory, run 
