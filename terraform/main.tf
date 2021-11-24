@@ -26,6 +26,9 @@ module "vpc" {
 }
 
 module "aws" {
+  depends_on = [
+    module.vpc
+  ]
   source              = "./aws"
   tag                 = var.unique_name
   pub_ssh_key_path    = var.pub_ssh_key_path
