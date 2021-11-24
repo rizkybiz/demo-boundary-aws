@@ -5,6 +5,13 @@ terraform {
       version = "3.65.0"
     }
   }
+  backend "remote" {
+    # organization = "<YOUR TFC/E ORG>"
+    organization = "jdefrank-org"
+    workspaces {
+      name = "aws-infrastructure"
+    }
+  }
 }
 
 provider "aws" {
@@ -18,8 +25,8 @@ module "vpc" {
   version              = "3.11.0"
   cidr                 = var.aws_vpc_cidr
   azs                  = data.aws_availability_zones.available.names
-  private_subnets      = cidrsubnets(cidrsubnet(var.aws_vpc_cidr, 4, 1))
-  public_subnets       = cidrsubnets(cidrsubnet(var.aws_vpc_cidr, 4, 2))
+  private_subnets      = ["10.0.0.0/25","10.0.0.128/25"]
+  public_subnets       = ["10.0.1.0/25","10.0.1.128/25"]
   enable_nat_gateway   = true
   single_nat_gateway   = true
   enable_dns_hostnames = true
@@ -31,17 +38,10 @@ module "aws" {
   ]
   source              = "./aws"
   tag                 = var.unique_name
-  pub_ssh_key_path    = var.pub_ssh_key_path
-  priv_ssh_key_path   = var.priv_ssh_key_path
+  pub_key             = var.pub_key
+  priv_key            = var.priv_key
   aws_vpc_id          = module.vpc.vpc_id
   aws_public_subnets  = module.vpc.public_subnets
   aws_private_subnets = module.vpc.private_subnets
   aws_ami_owner       = var.aws_ami_owner
-}
-
-module "boundary" {
-  source              = "./boundary"
-  url                 = "http://${module.aws.boundary_lb}:9200"
-  target_ips          = module.aws.target_ips
-  kms_recovery_key_id = module.aws.kms_recovery_key_id
 }

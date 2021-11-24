@@ -28,13 +28,13 @@ variable "aws_ami_owner" {
   type = string
 }
 
-variable "pub_ssh_key_path" {
-  default = "~/.ssh/id_rsa.pub"
-}
+# variable "pub_ssh_key_path" {
+#   default = "~/.ssh/id_rsa.pub"
+# }
 
-variable "priv_ssh_key_path" {
-  default = ""
-}
+# variable "priv_ssh_key_path" {
+#   default = ""
+# }
 
 variable "num_workers" {
   default = 1
@@ -67,3 +67,7 @@ variable "tls_disabled" {
 variable "kms_type" {
   default = "aws"
 }
+
+variable "pub_key" {}
+
+variable "priv_key" {}

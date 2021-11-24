@@ -12,10 +12,8 @@ variable "unique_name" {
   default = "boundary-test"
 }
 
-variable "pub_ssh_key_path" {
-  default = "~/.ssh/id_rsa.pub"
-}
+variable "tfe_org" {}
 
-variable "priv_ssh_key_path" {
-  default = ""
-}
+variable "pub_key" {}
+
+variable "priv_key" {}
