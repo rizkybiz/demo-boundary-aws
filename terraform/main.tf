@@ -18,8 +18,8 @@ module "vpc" {
   version              = "3.11.0"
   cidr                 = var.aws_vpc_cidr
   azs                  = data.aws_availability_zones.available.names
-  private_subnets      = cidrsubnets(cidrsubnet(var.aws_vpc_cidr, 1, 1))
-  public_subnets       = cidrsubnets(cidrsubnet(var.aws_vpc_cidr, 1, 2))
+  private_subnets      = cidrsubnets(cidrsubnet(var.aws_vpc_cidr, 4, 1))
+  public_subnets       = cidrsubnets(cidrsubnet(var.aws_vpc_cidr, 4, 2))
   enable_nat_gateway   = true
   single_nat_gateway   = true
   enable_dns_hostnames = true
