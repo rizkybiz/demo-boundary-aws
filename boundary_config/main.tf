@@ -1,7 +1,6 @@
 terraform {
   backend "remote" {
-    # organization = "<YOUR TFC/E ORG>"
-    organization = "jdefrank-org"
+    organization = "<YOUR TFC/E ORG>"
     workspaces {
       name = "boundary-config"
     }
