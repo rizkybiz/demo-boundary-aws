@@ -46,12 +46,13 @@ resource "aws_instance" "worker" {
       kms_type               = var.kms_type
       kms_worker_auth_key_id = aws_kms_key.worker_auth.id
     })
-    destination = "/opt/boundary/boundary-worker.hcl"
+    destination = "~/boundary-worker.hcl"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo /opt/boundary/./install.sh worker"
+      "sudo mv ~/boundary-worker.hcl /opt/boundary/boundary-worker.hcl",
+      "sudo /opt/boundary/./install.sh worker",
     ]
   }
 
@@ -100,18 +101,14 @@ resource "aws_instance" "controller" {
       kms_recovery_key_id    = aws_kms_key.recovery.id
       kms_root_key_id        = aws_kms_key.root.id
     })
-    destination = "/opt/boundary/boundary-controller.hcl"
-  }
-
-  provisioner "file" {
-    source      = "${path.module}/install/install.sh"
-    destination = "~/install.sh"
+    destination = "~/boundary-controller.hcl"
   }
 
   provisioner "remote-exec" {
     inline = [
+      "sudo mv ~/boundary-controller.hcl /opt/boundary/boundary-controller.hcl",
       "sudo chmod 0755 ~/install.sh",
-      "sudo ~/./install.sh controller"
+      "sudo /opt/boundary/./install.sh controller"
     ]
   }
 
