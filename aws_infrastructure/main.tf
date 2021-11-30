@@ -39,6 +39,7 @@ module "aws" {
   tag                 = var.unique_name
   pub_key             = var.pub_key
   priv_key            = var.priv_key
+  aws_region          = var.aws_region
   aws_vpc_id          = module.vpc.vpc_id
   aws_public_subnets  = module.vpc.public_subnets
   aws_private_subnets = module.vpc.private_subnets
