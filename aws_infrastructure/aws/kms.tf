@@ -7,6 +7,15 @@ resource "aws_kms_key" "root" {
   }
 }
 
+resource "aws_kms_key" "vault" {
+  description = "Vault KMS unseal key"
+  deletion_window_in_days = 10
+
+  tags = {
+    Name = "${var.tag}-${random_pet.test.id}"
+  }
+}
+
 resource "aws_kms_key" "worker_auth" {
   description             = "Boundary worker authentication key"
   deletion_window_in_days = 10

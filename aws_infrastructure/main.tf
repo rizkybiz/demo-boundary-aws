@@ -44,4 +44,5 @@ module "aws" {
   aws_public_subnets  = module.vpc.public_subnets
   aws_private_subnets = module.vpc.private_subnets
   aws_ami_owner       = var.aws_ami_owner
+  vault_license = var.vault_license
 }
