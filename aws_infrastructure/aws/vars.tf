@@ -80,10 +80,6 @@ variable "aws_region" {
     default = "us-east-1"
 }
 
-variable "key_pair" {
-    type = string
-}
-
 variable "instance_type" {
     type = string
     default = "t3.small"
@@ -106,6 +102,7 @@ variable "db_user" {
 
 variable "db_pass" {
     type = string
+    default = "securePassword1"
 }
 
 variable "mysql_dbname" {
@@ -150,6 +147,7 @@ variable "autojoin_value" {
 
 variable "prefix" {
     type = string
+    default = "vault-boundary"
 }
 
 variable "git_branch" {
@@ -159,23 +157,5 @@ variable "git_branch" {
 
 variable "owner" {
     type = string
+    default = "se"
 }
-
-variable "se_region" {
-    type = string
-}
-
-variable "purpose" {
-    type = string
-    default = "Demonstrate the power of Vault"
-}
-
-variable "ttl" {
-    type = string
-}
-
-variable "terraform" {
-    type = bool
-    default = true
-}
-

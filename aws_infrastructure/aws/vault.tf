@@ -105,10 +105,7 @@ resource "aws_security_group" "vault-server-sg" {
     
     tags = {
         owner = var.owner
-        se-region = var.se_region
-        purpose = var.purpose
-        ttl = var.ttl
-        terraform = var.terraform
+
     }
 }
 
@@ -154,10 +151,6 @@ resource "aws_iam_role" "vault-demo-role" {
     tags = {
         Name = "${var.prefix}-vault-iam-role"
         owner = var.owner
-        se-region = var.se_region
-        purpose = var.purpose
-        ttl = var.ttl
-        terraform = var.terraform
     }
 }
 
@@ -174,9 +167,5 @@ resource "aws_iam_instance_profile" "vault-demo" {
     tags = {
         Name = "${var.prefix}-vault-instance-profile"
         owner = var.owner
-        se-region = var.se_region
-        purpose = var.purpose
-        ttl = var.ttl
-        terraform = var.terraform
     }
 }
