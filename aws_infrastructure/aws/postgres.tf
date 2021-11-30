@@ -56,3 +56,13 @@ resource "aws_security_group" "vault-postgres-sg" {
         owner = var.owner
     }
 }
+
+resource "aws_db_subnet_group" "vault-db-subnet" {
+    name       = "${var.prefix}-vault-db-subnet"
+    subnet_ids = var.aws_public_subnets[0]
+
+    tags = {
+        Name = "Vault DB subnet group"
+            owner = var.owner
+    }
+}

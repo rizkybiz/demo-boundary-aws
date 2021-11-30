@@ -24,8 +24,8 @@ module "vpc" {
   version              = "3.11.0"
   cidr                 = var.aws_vpc_cidr
   azs                  = data.aws_availability_zones.available.names
-  private_subnets      = cidrsubnets(var.aws_vpc_cidr,1)
-  public_subnets       = cidrsubnets(cidrsubnet(var.aws_vpc_cidr,1,1),2,2)
+  private_subnets      = cidrsubnets(var.aws_vpc_cidr, 1)
+  public_subnets       = cidrsubnets(cidrsubnet(var.aws_vpc_cidr, 1, 1), 2, 2)
   enable_nat_gateway   = true
   single_nat_gateway   = true
   enable_dns_hostnames = true
@@ -44,5 +44,6 @@ module "aws" {
   aws_public_subnets  = module.vpc.public_subnets
   aws_private_subnets = module.vpc.private_subnets
   aws_ami_owner       = var.aws_ami_owner
-  vault_license = var.vault_license
+  vault_license       = var.vault_license
+  prefix              = var.unique_name
 }
