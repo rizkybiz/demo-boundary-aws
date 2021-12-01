@@ -11,5 +11,13 @@ output "kms_recovery_key_id" {
 }
 
 output "vault_postgres_endpoint" {
-  vaule = aws_db_instance.vault-postgres.endpoint
+  value = aws_db_instance.vault-postgres.endpoint
+}
+
+output "vault_node_dns_endpoint" {
+  value = aws_instance.vault-server[0].public_dns
+}
+
+output "vault_node_ip_endpoint" {
+  value = aws_instance.vault-server[0].public_ip
 }

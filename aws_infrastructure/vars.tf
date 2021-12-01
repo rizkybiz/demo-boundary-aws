@@ -20,11 +20,6 @@ variable "priv_key" {}
 
 ### Vault Vars
 
-variable "aws_region" {
-  type    = string
-  default = "us-east-1"
-}
-
 variable "instance_type" {
   type    = string
   default = "t3.small"
@@ -58,10 +53,6 @@ variable "mysql_dbname" {
 variable "postgres_dbname" {
   type    = string
   default = "tokenizationdb"
-}
-
-variable "kms_key_id" {
-  type = string
 }
 
 variable "vault_dl_url" {

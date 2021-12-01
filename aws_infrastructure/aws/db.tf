@@ -9,7 +9,7 @@ resource "aws_db_instance" "boundary" {
   password            = "boundarydemo"
   skip_final_snapshot = true
 
-  vpc_security_group_ids = [aws_security_group.boundary-db.id]
+  vpc_security_group_ids = [aws_security_group.db.id]
   db_subnet_group_name   = aws_db_subnet_group.boundary.name
   publicly_accessible    = true
 
@@ -38,21 +38,21 @@ resource "aws_db_instance" "boundary" {
 #   }
 # }
 
-# resource "aws_security_group" "boundary-db" {
-#   vpc_id = var.aws_vpc_id
-
-#   tags = {
-#     Name = "${var.tag}-db-${random_pet.test.id}"
-#   }
-# }
-
-resource "aws_security_group" "demo-db" {
+resource "aws_security_group" "db" {
   vpc_id = var.aws_vpc_id
 
   tags = {
     Name = "${var.tag}-db-${random_pet.test.id}"
   }
 }
+
+# resource "aws_security_group" "demo-db" {
+#   vpc_id = var.aws_vpc_id
+
+#   tags = {
+#     Name = "${var.tag}-db-${random_pet.test.id}"
+#   }
+# }
 
 resource "aws_security_group_rule" "allow_controller_sg" {
   type                     = "ingress"

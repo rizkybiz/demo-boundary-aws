@@ -11,5 +11,13 @@ output "boundary_lb" {
 }
 
 output "vault_postgres_endpoint" {
-  vaule = module.aws.vault_postgres_endpoint
+  value = module.aws.vault_postgres_endpoint
+}
+
+output "vault_node_dns_endpoint" {
+  value = module.aws.vault_node_dns_endpoint
+}
+
+output "vault_node_ip_endpoint" {
+  value = module.aws.vault_node_ip_endpoint
 }

@@ -8,7 +8,7 @@ resource "aws_kms_key" "root" {
 }
 
 resource "aws_kms_key" "vault" {
-  description = "Vault KMS unseal key"
+  description             = "Vault KMS unseal key"
   deletion_window_in_days = 10
 
   tags = {
